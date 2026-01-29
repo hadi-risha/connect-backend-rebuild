@@ -54,7 +54,7 @@ ZEGO_SERVER_SECRET=
 
 ## Installation & Setup
 1. Clone the repository
-git clone <repo-url>
+git clone https://github.com/hadi-risha/connect-backend-rebuild.git
 
 2. cd <project-folder>
 
