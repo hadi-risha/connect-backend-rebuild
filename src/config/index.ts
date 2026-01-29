@@ -1,5 +1,5 @@
 // // central config loader (env)
-
+import { SignOptions, Secret } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -19,8 +19,10 @@ interface OtpConfig {
 }
 
 interface JwtConfig {
-  accessSecret: string;
-  accessExpires: string;
+  // accessSecret: string;
+  // accessExpires: string;
+  accessSecret: Secret;
+  accessExpires: SignOptions["expiresIn"];
 }
 
 interface GoogleConfig {
@@ -80,8 +82,10 @@ export const config: AppConfig = {
   },
 
   jwt: {
-    accessSecret: requireEnv("JWT_ACCESS_SECRET"),
-    accessExpires: requireEnv("JWT_ACCESS_EXPIRES"),
+    // accessSecret: requireEnv("JWT_ACCESS_SECRET"),
+    // accessExpires: requireEnv("JWT_ACCESS_EXPIRES"),
+    accessSecret: requireEnv("JWT_ACCESS_SECRET") as Secret,
+    accessExpires: requireEnv("JWT_ACCESS_EXPIRES") as SignOptions["expiresIn"],
   },
 
   google: {

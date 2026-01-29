@@ -51,6 +51,7 @@
     "@types/nodemailer": "^7.0.4",
     "@types/passport-google-oauth20": "^2.0.17",
     "@types/socket.io": "^3.0.2",
+    "@types/stripe": "^8.0.417",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
     "eslint": "^9.39.2",
