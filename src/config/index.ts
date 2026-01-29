@@ -26,9 +26,9 @@ interface JwtConfig {
 }
 
 interface GoogleConfig {
-  callbackUrl?: string;
-  clientId?: string;
-  clientSecret?: string;
+  callbackUrl: string;
+  clientId: string;
+  clientSecret: string;
 }
 
 interface ImageKitConfig {
@@ -89,9 +89,9 @@ export const config: AppConfig = {
   },
 
   google: {
-    callbackUrl: process.env.GOOGLE_CALLBACK_URL,
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackUrl: requireEnv("GOOGLE_CALLBACK_URL"),
+    clientId: requireEnv("GOOGLE_CLIENT_ID"),
+    clientSecret: requireEnv("GOOGLE_CLIENT_SECRET"),
   },
 
   imagekit: {

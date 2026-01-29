@@ -2,5 +2,6 @@ import Stripe from "stripe";
 import { config } from "../config";
 
 export const stripe = new Stripe(config.stripe.secretKey, {
-  apiVersion: "2024-10-28.acacia",
+  // apiVersion: "2024-10-28.acacia",
+  apiVersion: "2026-01-28.clover" as Stripe.LatestApiVersion,
 });
