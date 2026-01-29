@@ -1,0 +1,5 @@
+# Ignore files you don’t want formatted
+node_modules
+dist
+coverage
+.env
