@@ -1,5 +1,4 @@
 import rateLimit from "express-rate-limit";
-import { Request, Response } from "express";
 
 export const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -29,12 +28,12 @@ export const apiRateLimiter = rateLimit({
 
 
 
-// ❌ Do NOT apply globally blindly
+//  Do NOT apply globally blindly
 // Why?
 // Health checks
 // Static assets
 
-// ✅ Apply selectively
+//  Apply selectively
 // /api/auth/login ->	Very strict
 // /api/auth/register ->	Strict
 // /api/auth/otp ->	Very strict
@@ -43,10 +42,10 @@ export const apiRateLimiter = rateLimit({
 
 
 
-// 🔟 Does rate limiter count as an “error”?
-// ❌ No, it’s not a bug
-// ❌ Not an exception
-// ✅ It’s a controlled rejection
+//  Does rate limiter count as an “error”?
+//  No, it’s not a bug
+//  Not an exception
+//  It’s a controlled rejection
 
 // So:
 
@@ -63,7 +62,7 @@ export const apiRateLimiter = rateLimit({
 //   "message": "Too many requests. Please slow down."
 // }
 
-// 11️⃣ How frontend should handle it
+// 1 How frontend should handle it
 
 // Frontend checks:
 
