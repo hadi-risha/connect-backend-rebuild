@@ -8,6 +8,14 @@ import { StatusCodes } from "../constants/statusCodes.enum";
 
 const userRepo = new UserRepository();
 
+type GoogleProfile = {
+  id: string;
+  displayName: string;
+  emails?: { value: string }[];
+  photos?: { value: string }[];
+};
+
+
 /*  Strategy init log */
 console.log("Initializing Google OAuth Strategy");
 console.log("Client ID: ", config.google.clientId ? "Loaded" : "Missing");
@@ -20,26 +28,27 @@ passport.use(
       clientSecret: config.google.clientSecret,
       callbackURL: config.google.callbackUrl, //BACKEND URL
     },
-    async (_accessToken: string, _refreshToken: string, profile: Profile, done: Function) => {
-         console.log("\n Google OAuth Callback Triggered");
+    async (_accessToken: string, _refreshToken: string, profile: GoogleProfile, done: (err: any, user?: any) => void) => {
+      console.log("\n Google OAuth Callback Triggered");
       try {
         /* Raw Google profile */
         console.log("Google Profile ID:", profile.id);
         console.log("Emails:", profile.emails);
         console.log("Display Name:", profile.displayName);
         console.log("Photos:", profile.photos);
+
         const email = profile.emails?.[0].value;
 
         if (!email) {
-            console.error("No email found in Google profile");
+          console.error("No email found in Google profile");
           return done(new Error("Google account has no email"));
         }
 
         console.log("Searching user by email:", email);
         let user = await userRepo.findByEmail(email);
-         if (user) {
-            console.log("user already exist: ", user)
-         }
+        if (user) {
+          console.log("user already exist: ", user)
+        }
 
         // New Google user
         if (!user) {

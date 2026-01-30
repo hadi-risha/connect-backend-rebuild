@@ -12,6 +12,10 @@ function requireEnv(name: string): string {
   return value;
 }
 
+// JWT custom types
+type JwtSecret = string | Buffer;
+type JwtExpiresIn = string | number;
+
 // Config interfaces
 interface OtpConfig {
   emailUser?: string;
@@ -19,10 +23,8 @@ interface OtpConfig {
 }
 
 interface JwtConfig {
-  // accessSecret: string;
-  // accessExpires: string;
-  accessSecret: Secret;
-  accessExpires: SignOptions["expiresIn"];
+  accessSecret: JwtSecret;
+  accessExpires: JwtExpiresIn;
 }
 
 interface GoogleConfig {
@@ -82,10 +84,8 @@ export const config: AppConfig = {
   },
 
   jwt: {
-    // accessSecret: requireEnv("JWT_ACCESS_SECRET"),
-    // accessExpires: requireEnv("JWT_ACCESS_EXPIRES"),
-    accessSecret: requireEnv("JWT_ACCESS_SECRET") as Secret,
-    accessExpires: requireEnv("JWT_ACCESS_EXPIRES") as SignOptions["expiresIn"],
+    accessSecret: requireEnv("JWT_ACCESS_SECRET") as JwtSecret,
+    accessExpires: requireEnv("JWT_ACCESS_EXPIRES") as JwtExpiresIn,
   },
 
   google: {

@@ -1,11 +1,10 @@
 import { config } from "./index";
-import { Secret, SignOptions } from "jsonwebtoken";
+import type { SignOptions } from "jsonwebtoken"; // use type-only import
+type Secret = string | Buffer;
 
-export const jwtConfig = {
+export const jwtConfig: { access: { secret: Secret; expiresIn: string | number } } = {
   access: {
-    // secret: config.jwt.accessSecret!,
-    // expiresIn: config.jwt.accessExpires
-     secret: config.jwt.accessSecret as Secret,
-    expiresIn: config.jwt.accessExpires as SignOptions["expiresIn"],
+    secret: config.jwt.accessSecret as Secret,
+    expiresIn: config.jwt.accessExpires, // now TS knows it's string | number
   },
 };
