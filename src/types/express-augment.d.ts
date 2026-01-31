@@ -1,4 +1,3 @@
-import "express";
 import { Role } from "../constants/roles.enum";
 
 declare global {
