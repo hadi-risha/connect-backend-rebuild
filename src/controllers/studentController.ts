@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../constants/statusCodes.enum";
 import { ApiError } from "../common/errors/ApiError";
-import { logger } from "../common/utils/logger";
 import { StudentService } from "../services/StudentService";
 import { CancellationBy } from "../constants/cancellationBy.enum";
 import { BookingStatus } from "../constants/bookingStatus.enum";
+import { BookingIdParam, StatusParam, StudentSessionParam } from "./interfaces/IRequestParams";
 
 const studentService = new StudentService();
 
@@ -20,7 +20,7 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
 };
 
 
-export const getBookings = async (req: Request, res: Response) => {
+export const getBookings = async (req: Request<StatusParam>, res: Response) => {
   const studentId = req.user?.id;
   const { status } = req.params;
   if (!studentId) {
@@ -60,7 +60,7 @@ export const cancelBooking = async (req: Request, res: Response) => {
 };
 
 
-export const toggleWishlist = async (req: Request, res: Response) => {
+export const toggleWishlist = async (req: Request<StudentSessionParam>, res: Response) => {
   const studentId = req.user?.id;
   const { sessionId } = req.params;
   if (!studentId) {
@@ -90,7 +90,7 @@ export const getWishlistSessions = async (req: Request, res: Response) => {
 };
 
 
-export const getBookingById = async (req: Request, res: Response) => {
+export const getBookingById = async (req: Request<BookingIdParam>, res: Response) => {
   const studentId = req.user?.id;
   const { bookingId } = req.params;
   if (!studentId) {

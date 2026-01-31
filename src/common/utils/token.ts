@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { type SignOptions, type Secret } from "jsonwebtoken";
 import crypto from "crypto";
 import { jwtConfig } from "../../config/jwt";
 
@@ -8,9 +8,11 @@ export const generateAccessToken = (payload: {
   role: string;
   email?: string;
 }) => {
-  return jwt.sign(payload, jwtConfig.access.secret, {
-    expiresIn: jwtConfig.access.expiresIn
-  });
+  const options: SignOptions = {
+    expiresIn: jwtConfig.access.expiresIn as SignOptions["expiresIn"]
+  };
+
+  return jwt.sign( payload, jwtConfig.access.secret as Secret, options );
 };
 
 // REFRESH TOKEN

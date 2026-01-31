@@ -3,8 +3,8 @@ import { UserService } from "../services/UserService";
 import { StatusCodes } from "../constants/statusCodes.enum";
 import imagekit from "../integrations/imagekit";
 import { ApiError } from "../common/errors/ApiError";
-import { logger } from "../common/utils/logger";
 import { config } from "../config";
+import { AiChatParam, SessionIdParam } from "./interfaces/IRequestParams";
 
 const userService = new UserService();
 
@@ -69,7 +69,7 @@ export const getAllActiveSessions = async (req: Request, res: Response) => {
 };
 
 
-export const getSingleSession = async (req: Request, res: Response) => {
+export const getSingleSession = async (req: Request<SessionIdParam>, res: Response) => {
   const { sessionId } = req.params;
   const userId = req?.user?.id;
   const role = req?.user?.role;
@@ -137,7 +137,7 @@ export const fetchAiChatlist = async (
 
 
 export const fetchSingleAiChat = async (
-  req: Request,
+  req: Request<AiChatParam>,
   res: Response
 ): Promise<Response> => {
   const userId = req.user?.id;
@@ -156,7 +156,7 @@ export const fetchSingleAiChat = async (
 
 
 export const updateExistingAiChat = async (
-  req: Request,
+  req: Request<AiChatParam>,
   res: Response
 ): Promise<Response> => {
   const userId = req.user?.id;

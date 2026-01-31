@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ChatService } from "../services/ChatService";
 import { StatusCodes } from "../constants/statusCodes.enum";
 import { ApiError } from "../common/errors/ApiError";
+import { ChatParam } from "./interfaces/IRequestParams";
 
 const chatService = new ChatService();
 
@@ -84,7 +85,7 @@ export const leaveGroup = async (req: Request, res: Response) => {
 };
 
 
-export const deleteGroupChat = async (req: Request, res: Response) => {
+export const deleteGroupChat = async (req: Request<ChatParam>, res: Response) => {
   const adminId = req.user?.id;
   const { chatId } = req.params;
   if (!adminId) {
@@ -125,7 +126,7 @@ export const getDiscoverGroups = async (req: Request, res: Response) => {
 };
 
 
-export const getChatDetail = async (req: Request, res: Response) => {
+export const getChatDetail = async (req: Request<ChatParam>, res: Response) => {
   const chatId = req.params.chatId;
   const chat = await chatService.getChatById(chatId);
 
@@ -133,7 +134,7 @@ export const getChatDetail = async (req: Request, res: Response) => {
 };
 
 
-export const updateGroupChat = async (req: Request, res: Response) => {
+export const updateGroupChat = async (req: Request<ChatParam>, res: Response) => {
   const chatId = req.params.chatId;
   const userId = req.user?.id;
   if (!userId) return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorized" });

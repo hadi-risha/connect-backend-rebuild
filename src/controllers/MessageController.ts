@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import { MessageService } from "../services/MessageService";
 import { StatusCodes } from "../constants/statusCodes.enum";
 import { ApiError } from "../common/errors/ApiError";
+import { ChatRoomIdParam, MessageIdParam } from "./interfaces/IRequestParams";
 
 const messageService = new MessageService();
 
-export const getMessages = async (req: Request, res: Response) => {
+export const getMessages = async (req: Request<ChatRoomIdParam>, res: Response) => {
   const userId = req.user?.id;
   const { chatRoomId } = req.params;
   const limit = Number(req.query.limit ?? 30);
@@ -23,7 +24,7 @@ export const getMessages = async (req: Request, res: Response) => {
 };
 
 
-export const deleteMessage = async (req: Request, res: Response) => {
+export const deleteMessage = async (req: Request<MessageIdParam>, res: Response) => {
   const userId = req.user?.id;
   const { messageId } = req.params;
   if (!userId) throw new ApiError(StatusCodes.UNAUTHORIZED, "Unauthorized");
@@ -45,7 +46,7 @@ export const sendMessage = async (req: Request, res: Response) => {
 };
 
 
-export const reactToMessage = async (req: Request, res: Response) => {
+export const reactToMessage = async (req: Request<MessageIdParam>, res: Response) => {
   const userId = req.user?.id;
   const { messageId } = req.params;
   const { emoji } = req.body;

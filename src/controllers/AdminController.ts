@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "../constants/statusCodes.enum";
 import { AdminService } from "../services/AdminService";
 import { ApiError } from "../common/errors/ApiError";
+import { IdParam } from "./interfaces/IRequestParams";
 
 const adminService = new AdminService();
 
@@ -16,7 +17,7 @@ export const getAllUsers  = async (req: Request, res: Response) => {
 };
 
 
-export const toggleUserRole = async (req: Request, res: Response) => {
+export const toggleUserRole = async (req: Request<IdParam>, res: Response) => {
   const user = await adminService.toggleRole(req.params.id);
   res.status(StatusCodes.OK).json({
     message: "User role updated",
@@ -25,7 +26,7 @@ export const toggleUserRole = async (req: Request, res: Response) => {
 };
 
 
-export const toggleBlockUser = async (req: Request, res: Response) => {
+export const toggleBlockUser = async (req: Request<IdParam>, res: Response) => {
   const user = await adminService.toggleBlock(req.params.id);
   res.status(StatusCodes.OK).json({
     message: "User block status updated",
@@ -63,7 +64,7 @@ export const createNotification = async (req: Request, res: Response) => {
 };
 
 
-export const updateNotification = async (req: Request, res: Response) => {
+export const updateNotification = async (req: Request<IdParam>, res: Response) => {
   const notif = await adminService.updateNotification(
     req.params.id,
     req.body.title,
@@ -74,7 +75,7 @@ export const updateNotification = async (req: Request, res: Response) => {
 };
 
 
-export const toggleNotificationVisibility = async (req: Request, res: Response) => {
+export const toggleNotificationVisibility = async (req: Request<IdParam>, res: Response) => {
   const notif = await adminService.toggleVisibility(req.params.id);
 
   res.status(StatusCodes.OK).json({

@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../constants/statusCodes.enum";
 import { ApiError } from "../common/errors/ApiError";
-import { logger } from "../common/utils/logger";
-
 import { ZegoService } from "../services/ZegoService";
 
 const zegoService = new ZegoService();

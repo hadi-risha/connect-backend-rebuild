@@ -4,6 +4,7 @@ import { ApiError } from "../common/errors/ApiError";
 import { SessionService } from "../services/SessionService";
 import { InstructorService } from "../services/InstructorService";
 import { BookingStatus } from "../constants/bookingStatus.enum";
+import { SessionIdParam, StatusParam } from "./interfaces/IRequestParams";
 
 const sessionService = new SessionService();
 const instructorService = new InstructorService();
@@ -22,7 +23,7 @@ export const createSession = async (req: Request, res: Response) => {
 };
 
 
-export const getSingleSession = async (req: Request, res: Response) => {
+export const getSingleSession = async (req: Request<SessionIdParam>, res: Response) => {
   const instructorId = req.user?.id;
   const { sessionId } = req.params;
   if (!instructorId) {
@@ -37,7 +38,7 @@ export const getSingleSession = async (req: Request, res: Response) => {
 };
 
 
-export const updateSession = async (req: Request, res: Response) => {
+export const updateSession = async (req: Request<SessionIdParam>, res: Response) => {
   const instructorId = req.user?.id;
   const { sessionId } = req.params;
   if (!instructorId) {
@@ -53,7 +54,7 @@ export const updateSession = async (req: Request, res: Response) => {
 };
 
 
-export const getInstructorBookings = async (req: Request, res: Response) => {
+export const getInstructorBookings = async (req: Request<StatusParam>, res: Response) => {
   const instructorId = req.user?.id;
   const { status } = req.params;
   if (!instructorId) {
@@ -108,7 +109,7 @@ export const getArchivedSessions = async (req: Request, res: Response) => {
 };
 
 
-export const toggleSessionArchive = async (req: Request, res: Response) => {
+export const toggleSessionArchive = async (req: Request<SessionIdParam>, res: Response) => {
   const instructorId = req.user?.id;
   const { sessionId } = req.params;
   const { isArchived } = req.body;
