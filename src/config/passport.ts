@@ -15,7 +15,6 @@ type GoogleProfile = {
   photos?: { value: string }[];
 };
 
-
 /*  Strategy init log */
 console.log("Initializing Google OAuth Strategy");
 console.log("Client ID: ", config.google.clientId ? "Loaded" : "Missing");
@@ -38,6 +37,7 @@ passport.use(
         console.log("Photos:", profile.photos);
 
         const email = profile.emails?.[0].value;
+        console.log("google auth use email", email)
 
         if (!email) {
           console.error("No email found in Google profile");
@@ -52,7 +52,7 @@ passport.use(
 
         // New Google user
         if (!user) {
-            console.log("Creating new Google user");
+          console.log("Creating new Google user");
           user = await userRepo.create({
             name: profile.displayName,
             email,

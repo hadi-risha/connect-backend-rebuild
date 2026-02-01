@@ -67,7 +67,7 @@ export class AuthService implements IAuthService {
     logger.info("User created successfully (unverified)", { email });
 
     // Generate OTP
-     const { otp, expiresAt } = generateOtp(email);
+    const { otp, expiresAt } = generateOtp(email);
     logger.info("OTP generated", { email });
 
     // Send OTP email
@@ -110,6 +110,9 @@ export class AuthService implements IAuthService {
 
     const refreshToken = generateRefreshToken();
     const tokenHash = hashRefreshToken(refreshToken);
+
+    console.log("created accesstoken in verifyOtpAndLogin ", accessToken);
+    console.log("created refreshToken in verifyOtpAndLogin ", refreshToken);
 
     await this.tokenRepo.create({
       userId: user._id,
@@ -211,6 +214,9 @@ export class AuthService implements IAuthService {
     const refreshToken = generateRefreshToken();
     const tokenHash = hashRefreshToken(refreshToken);
 
+    console.log("created accesstoken in login ", accessToken);
+    console.log("created refreshToken in login ", refreshToken);
+
     await this.tokenRepo.create({
       userId: user._id,
       tokenHash,
@@ -224,6 +230,7 @@ export class AuthService implements IAuthService {
       email: user.email,
       role: user.role
     };
+    console.log("safeUser in login", safeUser)
 
     logger.info("Login successful", { email });
 
@@ -360,6 +367,7 @@ export class AuthService implements IAuthService {
     console.log("googleCallback service")
     
     const user = await this.userRepo.findOne({ _id: userId})
+    console.log("user data on googleAuth", user)
     if (!user) {
       logger.warn("google auth failed - user not found or created");
       throw new ApiError(StatusCodes.BAD_REQUEST, "User not found");
@@ -373,6 +381,8 @@ export class AuthService implements IAuthService {
 
     const refreshToken = generateRefreshToken();
     const tokenHash = hashRefreshToken(refreshToken);
+    console.log("created accesstoken in googleAuth ", accessToken);
+    console.log("created refreshToken in googleAuth ", refreshToken);
 
     await this.tokenRepo.create({
       userId: user._id,
@@ -392,6 +402,7 @@ export class AuthService implements IAuthService {
   // generate refresh token and access token
   async refreshAccessToken(refreshToken: string) {
     logger.info("Refresh token attempt");
+    console.log("Incoming refresh token in refreshAccessToken service:", refreshToken);
 
     const tokenHash = hashRefreshToken(refreshToken);
 
