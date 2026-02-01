@@ -212,7 +212,7 @@ export class AuthService implements IAuthService {
     const tokenHash = hashRefreshToken(refreshToken);
 
     await this.tokenRepo.create({
-      userId: user.id,
+      userId: user._id,
       tokenHash,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       deviceInfo: "browser"
@@ -510,7 +510,7 @@ export class AuthService implements IAuthService {
 
     // Generate tokens
     const accessToken = generateAccessToken({
-      userId: admin.id,
+      userId: admin._id,
       role: admin.role
     });
 
@@ -518,7 +518,7 @@ export class AuthService implements IAuthService {
     const tokenHash = hashRefreshToken(refreshToken);
 
     await this.tokenRepo.create({
-      userId: admin.id,
+      userId: admin._id,
       tokenHash,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       deviceInfo: "browser"
@@ -529,7 +529,7 @@ export class AuthService implements IAuthService {
       accessToken,
       refreshToken,
       user: {
-        id: admin.id,
+        id: admin._id,
         name: admin.name,
         email: admin.email,
         role: admin.role
