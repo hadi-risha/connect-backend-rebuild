@@ -1,5 +1,5 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import {config} from "./index";
 import { UserRepository } from "../repositories/UserRepository";
 import { AuthProvider } from "../constants/authProvider.enum";

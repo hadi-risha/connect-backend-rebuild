@@ -1,5 +1,4 @@
 import { config } from "./index";
-import type { SignOptions } from "jsonwebtoken"; // use type-only import
 type Secret = string | Buffer;
 
 export const jwtConfig: { access: { secret: Secret; expiresIn: string | number } } = {

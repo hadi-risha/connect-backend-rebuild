@@ -20,7 +20,8 @@ export const verifyOtp = async (req: Request, res: Response) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: config.env === "production", // HTTPS only in prod
-    sameSite: config.env === "production" ? "strict" : "lax",
+    // sameSite: config.env === "production" ? "strict" : "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
   res.status(StatusCodes.OK).json({
@@ -47,7 +48,8 @@ export const login = async (req: Request, res: Response) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: config.env === "production", // HTTPS only in prod
-    sameSite: config.env === "production" ? "strict" : "lax",
+    // sameSite: config.env === "production" ? "strict" : "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
@@ -102,7 +104,8 @@ export const googleCallback = async (req: Request, res: Response) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: config.env === "production", // HTTPS only in prod
-    sameSite: config.env === "production" ? "strict" : "lax",
+    // sameSite: config.env === "production" ? "strict" : "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
@@ -124,7 +127,8 @@ export const refreshToken = async (req: Request, res: Response) => {
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
     secure: config.env === "production", // HTTPS only in prod
-    sameSite: config.env === "production" ? "strict" : "lax",
+    // sameSite: config.env === "production" ? "strict" : "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
@@ -138,7 +142,8 @@ export const adminLogin = async (req: Request, res: Response) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: config.env === "production", // HTTPS only in prod
-    sameSite: config.env === "production" ? "strict" : "lax",
+    // sameSite: config.env === "production" ? "strict" : "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
   res.status(StatusCodes.OK).json({
