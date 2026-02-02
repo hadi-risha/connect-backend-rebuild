@@ -150,6 +150,7 @@ export const googleCallback = async (req: Request, res: Response) => {
 
 export const refreshToken = async (req: Request, res: Response) => {
   console.log("req.cookies in refresh ", req.cookies)
+  console.log("req.cookies.refreshToken in refresh ", req.cookies.refreshToken)
   const token = req.cookies.refreshToken;
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
