@@ -69,6 +69,13 @@ export const login = async (req: Request, res: Response) => {
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
+  res.cookie("testingrefreshtoken", "hy refresh token", {
+    httpOnly: true,
+    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
+    sameSite: "none",      // required cross-site
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  });
+
   res.status(StatusCodes.OK).json({
     message: "Logged in successfully",
     accessToken, user
