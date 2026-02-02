@@ -65,7 +65,7 @@ export const login = async (req: Request, res: Response) => {
     httpOnly: true,
     secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
     sameSite: "none",      // required cross-site
-    path: "https://connect-backend-rebuild.onrender.com/api/auth/refresh",
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
@@ -148,7 +148,7 @@ export const googleCallback = async (req: Request, res: Response) => {
 };
 
 
-export const refreshToken = async (req: Request, res: Response) => {
+export const refreshUserToken = async (req: Request, res: Response) => {
   console.log("req.cookies in refresh ", req.cookies)
   console.log("req.cookies.refreshToken in refresh ", req.cookies.refreshToken)
   const token = req.cookies.refreshToken;
@@ -166,11 +166,11 @@ export const refreshToken = async (req: Request, res: Response) => {
   //   maxAge: 7 * 24 * 60 * 60 * 1000
   // });
 
-  res.cookie("refreshToken", refreshToken, {
+  res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
     secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
     sameSite: "none",      // required cross-site
-    path: "https://connect-backend-rebuild.onrender.com/api/auth/refresh",
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 

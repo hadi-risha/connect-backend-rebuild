@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { authRateLimiter } from "../middlewares/rateLimiter";
 import { adminLogin, forgotPassword, googleCallback, login, 
-    logout, refreshToken, register, resendOtp, resetPassword, 
+    logout, refreshUserToken , register, resendOtp, resetPassword, 
     validateResetToken, verifyOtp } from "../controllers/AuthController";
 import { googleAuthCallback } from "../middlewares/googleAuth.middleware";
 
@@ -21,7 +21,7 @@ router.get("/google", passport.authenticate("google", {scope: ["profile", "email
 // google callback
 router.get("/google/callback", googleAuthCallback, googleCallback);
 
-router.post("/refresh", refreshToken);  
+router.post("/refresh", refreshUserToken );  
 router.post("/admin/login", adminLogin);
 router.post("/logout", logout);   
 
