@@ -26,6 +26,20 @@ export const getImageKitAuth = async (req: Request, res: Response) => {
 };
 
 
+export const getUserProfile = async (req: Request, res: Response) => {
+  const userId = req?.user?.id;
+  if (!userId) {
+    throw new ApiError(StatusCodes.UNAUTHORIZED, "Unauthorized");
+  }
+  const result = await userService.getUserProfile(userId);
+
+  res.status(StatusCodes.OK).json({
+    message: "Profile fetched successfully",
+    user: result,
+  });
+};
+
+
 export const switchRole = async (req: Request, res: Response) => {
   const userId = req?.user?.id;
   if (!userId) {

@@ -26,13 +26,22 @@ export class UserService implements IUserService {
   private aiRatingRepo = new AiRatingRepository();
   private notificationRepo = new NotificationRepository();
 
+  async getUserProfile(userId: string) {
+    const user = await this.userRepo.findOne({ _id: userId });
+    if (!user){
+      logger.warn("User not found")
+      throw new ApiError(StatusCodes.NOT_FOUND, "User not found");
+    } 
+    return user;
+  }
+
   async switchRole(userId: string, payload: SwitchRolePayload) {
     const { role, instructorProfile, photo, removePhoto } = payload;
 
     const user = await this.userRepo.findOne({ _id: userId });
     if (!user){
       logger.warn("User not found")
-      throw new ApiError(404, "User not found");
+      throw new ApiError(StatusCodes.NOT_FOUND, "User not found");
     } 
 
     // Instructor → Student
