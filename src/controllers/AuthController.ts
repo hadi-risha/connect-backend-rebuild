@@ -106,6 +106,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     secure: config.env === "production", // HTTPS only in prod
     // sameSite: config.env === "production" ? "strict" : "lax",
     sameSite: config.env === "production" ? "none" : "lax",
+    path: "/api/auth/refresh",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
