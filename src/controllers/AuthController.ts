@@ -29,7 +29,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
     httpOnly: true,
     secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
     sameSite: "none",      // required cross-site
-    path: "https://connect-backend-rebuild.onrender.com/api/auth/refresh",
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
   res.status(StatusCodes.OK).json({
@@ -137,7 +137,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     httpOnly: true,
     secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
     sameSite: "none",      // required cross-site
-    path: "https://connect-backend-rebuild.onrender.com/api/auth/refresh",
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
@@ -192,7 +192,7 @@ export const adminLogin = async (req: Request, res: Response) => {
     httpOnly: true,
     secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
     sameSite: "none",      // required cross-site
-    path: "https://connect-backend-rebuild.onrender.com/api/auth/refresh",
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
   res.status(StatusCodes.OK).json({
