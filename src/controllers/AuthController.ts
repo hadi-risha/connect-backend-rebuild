@@ -45,11 +45,19 @@ export const resendOtp = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const { accessToken, refreshToken, user } = await authService.login(email, password);
+  // res.cookie("refreshToken", refreshToken, {
+  //   httpOnly: true,
+  //   secure: config.env === "production", // HTTPS only in prod
+  //   // sameSite: config.env === "production" ? "strict" : "lax",
+  //   sameSite: config.env === "production" ? "none" : "lax",
+  //   maxAge: 7 * 24 * 60 * 60 * 1000
+  // });
+
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: config.env === "production", // HTTPS only in prod
-    // sameSite: config.env === "production" ? "strict" : "lax",
-    sameSite: config.env === "production" ? "none" : "lax",
+    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
+    sameSite: "none",      // required cross-site
+    path: "/api/auth/refresh",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
