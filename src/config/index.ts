@@ -82,7 +82,7 @@ export const config: AppConfig = {
   otp: {
     // emailUser: process.env.EMAIL_USER,
     // emailPass: process.env.EMAIL_PASS,
-    emailUser: requireEnv("EMAIL_USER"),
+    emailUser: requireEnv("EMAIL_USER"),  // verfied sender in brevo
     emailPass: requireEnv("EMAIL_PASS"),
 
   },
