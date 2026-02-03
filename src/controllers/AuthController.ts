@@ -17,21 +17,15 @@ export const register = async (req: Request, res: Response) => {
 export const verifyOtp = async (req: Request, res: Response) => {
   const { email, otp } = req.body;
   const { accessToken, refreshToken, user } = await authService.verifyOtpAndLogin(email, otp);
-  // res.cookie("refreshToken", refreshToken, {
-  //   httpOnly: true,
-  //   secure: config.env === "production", // HTTPS only in prod
-  //   // sameSite: config.env === "production" ? "strict" : "lax",
-  //   sameSite: config.env === "production" ? "none" : "lax",
-  //   maxAge: 7 * 24 * 60 * 60 * 1000
-  // });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
-    sameSite: "none",      // required cross-site
+    secure: true,          
+    sameSite: "none",      
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
+  
   res.status(StatusCodes.OK).json({
     message: "Account verified successfully",
     accessToken, user
@@ -63,16 +57,9 @@ export const login = async (req: Request, res: Response) => {
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
-    sameSite: "none",      // required cross-site
+    secure: true,          
+    sameSite: "none",      
     path: "/",
-    maxAge: 7 * 24 * 60 * 60 * 1000
-  });
-
-  res.cookie("testingrefreshtoken", "hy refresh token", {
-    httpOnly: true,
-    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
-    sameSite: "none",      // required cross-site
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
@@ -124,15 +111,6 @@ export const googleCallback = async (req: Request, res: Response) => {
   }
   const { accessToken, refreshToken, user } = await authService.googleAuth( userId );
 
-  // res.cookie("refreshToken", refreshToken, {
-  //   httpOnly: true,
-  //   secure: config.env === "production", // HTTPS only in prod
-  //   // sameSite: config.env === "production" ? "strict" : "lax",
-  //   sameSite: config.env === "production" ? "none" : "lax",
-  //   path: "/api/auth/refresh",
-  //   maxAge: 7 * 24 * 60 * 60 * 1000
-  // });
-
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
@@ -158,13 +136,6 @@ export const refreshUserToken = async (req: Request, res: Response) => {
     });
   }
   const { accessToken, refreshToken: newRefreshToken, user } = await authService.refreshAccessToken(token);
-  // res.cookie("refreshToken", newRefreshToken, {
-  //   httpOnly: true,
-  //   secure: config.env === "production", // HTTPS only in prod
-  //   // sameSite: config.env === "production" ? "strict" : "lax",
-  //   sameSite: config.env === "production" ? "none" : "lax",
-  //   maxAge: 7 * 24 * 60 * 60 * 1000
-  // });
 
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
@@ -181,17 +152,11 @@ export const refreshUserToken = async (req: Request, res: Response) => {
 export const adminLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const { accessToken, refreshToken, user } = await authService.adminLogin(email, password);
-  // res.cookie("refreshToken", refreshToken, {
-  //   httpOnly: true,
-  //   secure: config.env === "production", // HTTPS only in prod
-  //   // sameSite: config.env === "production" ? "strict" : "lax",
-  //   sameSite: config.env === "production" ? "none" : "lax",
-  //   maxAge: 7 * 24 * 60 * 60 * 1000
-  // });
+
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
-    sameSite: "none",      // required cross-site
+    secure: true,          
+    sameSite: "none",      
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
   });

@@ -1,10 +1,10 @@
 import SibApiV3Sdk from "sib-api-v3-sdk";
-import { config } from "../../config";
+import { config } from "../../../config";
 
 export const sendOtpEmail = async (email: string, otp: string) => {
   try {
     const client = SibApiV3Sdk.ApiClient.instance;
-    client.authentications["api-key"].apiKey = process.env.BREVO_API_KEY!;
+    client.authentications["api-key"].apiKey = config.otp.brevoApiKey;
 
     const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 

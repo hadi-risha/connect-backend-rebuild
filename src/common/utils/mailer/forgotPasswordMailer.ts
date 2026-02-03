@@ -1,27 +1,39 @@
-import nodemailer from "nodemailer";
+import SibApiV3Sdk from "sib-api-v3-sdk";
 import { config } from "../../../config";
 
 export const sendForgotPasswordEmail = async (
   email: string,
   resetUrl: string
 ) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: config.otp.emailUser,
-      pass: config.otp.emailPass,
-    },
-  });
+  try {
+    const client = SibApiV3Sdk.ApiClient.instance;
+    client.authentications["api-key"].apiKey = config.otp.brevoApiKey;
 
-  await transporter.sendMail({
-    from: `"Connect" <${config.otp.emailUser}>`,
-    to: email,
-    subject: "Password Reset Request",
-    html: `
-      <p>You requested a password reset.</p>
-      <p>Click the link below to reset your password:</p>
-      <a href="${resetUrl}">${resetUrl}</a>
-      <p>This link will expire in 15 minutes.</p>
-    `,
-  });
+    const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+    await apiInstance.sendTransacEmail({
+      sender: { email: config.otp.emailUser, name: "Connect App" },
+      to: [{ email }],
+      subject: "Password Reset Request",
+      htmlContent: `
+        <h2>Password Reset</h2>
+        <p>You requested to reset your password.</p>
+        <p>Click below to continue:</p>
+        <a href="${resetUrl}" style="
+          background:#4F46E5;
+          padding:10px 16px;
+          color:white;
+          text-decoration:none;
+          border-radius:6px;
+          display:inline-block;
+          margin-top:10px;
+        ">Reset Password</a>
+        <p>This link expires in 15 minutes.</p>
+      `,
+    });
+
+  } catch (error) {
+    console.log("Brevo Forgot Password mail error:", error);
+    throw new Error("Failed to send reset email. Please try again.");
+  }
 };

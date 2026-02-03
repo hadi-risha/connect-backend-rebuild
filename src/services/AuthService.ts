@@ -4,7 +4,7 @@ import { logger } from "../common/utils/logger";
 import { ApiError } from "../common/errors/ApiError";
 import { comparePassword, hashPassword } from "../common/utils/password";
 import { generateOtp, verifyOtp } from "../common/utils/otp";
-import { sendOtpEmail } from "../common/utils/mailer";
+import { sendOtpEmail } from "../common/utils/mailer/mailer";
 import { AuthProvider } from "../constants/authProvider.enum";
 import { generateAccessToken, generateRefreshToken, hashRefreshToken } from "../common/utils/token";
 import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository";

@@ -20,6 +20,7 @@ type JwtExpiresIn = string | number;
 interface OtpConfig {
   emailUser?: string;
   emailPass?: string;
+  brevoApiKey? :string;
 }
 
 interface JwtConfig {
@@ -80,11 +81,9 @@ export const config: AppConfig = {
   frontendUrl: requireEnv("FRONTEND_URL"),
 
   otp: {
-    // emailUser: process.env.EMAIL_USER,
-    // emailPass: process.env.EMAIL_PASS,
     emailUser: requireEnv("EMAIL_USER"),  // verfied sender in brevo
     emailPass: requireEnv("EMAIL_PASS"),
-
+    brevoApiKey: requireEnv("BREVO_API_KEY"),
   },
 
   jwt: {
