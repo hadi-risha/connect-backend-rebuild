@@ -9,10 +9,12 @@ const studentService = new StudentService();
 const bookingRepo = new BookingRepository();
 
 export const stripeWebhookHandler = async (req: Request, res: Response) => {
+  console.log("stripeWebhookHandler")
   const sig = req.headers["stripe-signature"] as string;
   let event: Stripe.Event;
 
   try {
+    console.log("stripeWebhookHandler try block")
     event = stripe.webhooks.constructEvent(
       req.body,
       sig,
@@ -22,6 +24,8 @@ export const stripeWebhookHandler = async (req: Request, res: Response) => {
     console.error("Webhook signature verification failed", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
+
+  console.log("stripeWebhookHandler event.type", event.type)
 
   switch (event.type) {
     case "payment_intent.succeeded": {
