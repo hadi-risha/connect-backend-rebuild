@@ -15,7 +15,7 @@ export const sendOtpEmail = async (email: string, otp: string) => {
 
     await transporter.sendMail({
       // from: config.otp.emailUser,
-      from: `"Connect App" <${process.env.BREVO_SMTP_USER}>`,
+      from: `"Connect App" <${config.otp.emailUser}>`,
       to: email,
       subject: "Your OTP Code",
       text: `Your OTP code is ${otp}. Valid for 2 minutes`
