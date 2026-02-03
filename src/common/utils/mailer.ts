@@ -18,6 +18,7 @@ export const sendOtpEmail = async (email: string, otp: string) => {
       text: `Your OTP code is ${otp}. Valid for 2 minutes`
     });
   } catch (error) {
+    console.log("mailer err", error)
     throw new Error("Failed to send OTP email. Please try again.");
   }
 };
