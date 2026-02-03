@@ -9,12 +9,14 @@ import { BookingIdParam, StatusParam, StudentSessionParam } from "./interfaces/I
 const studentService = new StudentService();
 
 export const createPaymentIntent = async (req: Request, res: Response) => {
+  console.log("createPaymentIntent controller");
   const { sessionId, selectedDate, timeSlot, concerns } = req.body;
   const studentId = req.user?.id;
   if (!studentId) {
     throw new ApiError(StatusCodes.UNAUTHORIZED, "Unauthorized");
   }
   const clientSecret  = await studentService.createPaymentIntent(studentId, sessionId, timeSlot, selectedDate, concerns);
+  console.log("clientSecret createPaymentIntent controller", clientSecret);
 
   res.status(StatusCodes.OK).json({ clientSecret });
 };

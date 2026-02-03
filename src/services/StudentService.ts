@@ -29,7 +29,8 @@ export class StudentService implements IStudentService {
         selectedDate: string,  
         concerns?: string
         ) {
-
+        
+        console.log("createPaymentIntent service");
         const session = await this.sessionRepo.findOne({ _id: sessionId });
         if (!session) {
             logger.warn("Session not found")
@@ -75,6 +76,8 @@ export class StudentService implements IStudentService {
             },
         });
 
+        console.log("paymentIntent", paymentIntent);
+        console.log("paymentIntent.client_secret", paymentIntent.client_secret);
         return paymentIntent.client_secret;
     }
 
