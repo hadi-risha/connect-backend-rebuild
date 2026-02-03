@@ -77,7 +77,6 @@ export const config: AppConfig = {
   port: Number(requireEnv("PORT")),
 
   mongoUri: requireEnv("MONGO_URI"),
-  // frontendUrl: process.env.FRONTEND_URL,
   frontendUrl: requireEnv("FRONTEND_URL"),
 
   otp: {

@@ -37,14 +37,12 @@ passport.use(
         console.log("Photos:", profile.photos);
 
         const email = profile.emails?.[0].value;
-        console.log("google auth use email", email)
 
         if (!email) {
           console.error("No email found in Google profile");
           return done(new Error("Google account has no email"));
         }
 
-        console.log("Searching user by email:", email);
         let user = await userRepo.findByEmail(email);
         if (user) {
           console.log("user already exist: ", user)
@@ -64,10 +62,10 @@ passport.use(
 
         // Passport expects errors via done(err), so return via done
         if (user.isBlocked) {
-            console.warn("Blocked user attempted login:", user.email);
-            return done(
-                new ApiError(StatusCodes.FORBIDDEN, "Account is blocked", "USER_BLOCKED")
-            );
+          console.warn("Blocked user attempted login:", user.email);
+          return done(
+            new ApiError(StatusCodes.FORBIDDEN, "Account is blocked", "USER_BLOCKED")
+          );
         }
 
         if (user.provider !== AuthProvider.GOOGLE) {

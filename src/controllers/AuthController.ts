@@ -104,7 +104,6 @@ export const resetPassword = async (req: Request, res: Response ) => {
 
 
 export const googleCallback = async (req: Request, res: Response) => {
-  console.log("googleCallback controller")
   const userId = req.user?.id; 
   if (!userId) {
     throw new ApiError(StatusCodes.UNAUTHORIZED, "Unauthorized");
@@ -113,7 +112,7 @@ export const googleCallback = async (req: Request, res: Response) => {
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
+    secure: true,          
     sameSite: "none",      // required cross-site
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
@@ -127,8 +126,6 @@ export const googleCallback = async (req: Request, res: Response) => {
 
 
 export const refreshUserToken = async (req: Request, res: Response) => {
-  console.log("req.cookies in refresh ", req.cookies)
-  console.log("req.cookies.refreshToken in refresh ", req.cookies.refreshToken)
   const token = req.cookies.refreshToken;
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -139,7 +136,7 @@ export const refreshUserToken = async (req: Request, res: Response) => {
 
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
-    secure: true,          // 🔥 ALWAYS TRUE for Render/Vercel
+    secure: true,          
     sameSite: "none",      // required cross-site
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000
