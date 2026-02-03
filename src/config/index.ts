@@ -76,11 +76,15 @@ export const config: AppConfig = {
   port: Number(requireEnv("PORT")),
 
   mongoUri: requireEnv("MONGO_URI"),
-  frontendUrl: process.env.FRONTEND_URL,
+  // frontendUrl: process.env.FRONTEND_URL,
+  frontendUrl: requireEnv("FRONTEND_URL"),
 
   otp: {
-    emailUser: process.env.EMAIL_USER,
-    emailPass: process.env.EMAIL_PASS,
+    // emailUser: process.env.EMAIL_USER,
+    // emailPass: process.env.EMAIL_PASS,
+    emailUser: requireEnv("EMAIL_USER"),
+    emailPass: requireEnv("EMAIL_PASS"),
+
   },
 
   jwt: {
