@@ -22,6 +22,7 @@ export class AuthService implements IAuthService {
   async register(data: any) {
     const { name, email, password, confirmPassword } = data;
     logger.info("Registration attempt started", { email });
+    console.log("data", name, email, password, confirmPassword)
 
     if (!name || !email || !password || !confirmPassword) {
       logger.warn("Registration failed - missing fields", { email });

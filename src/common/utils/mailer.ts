@@ -4,15 +4,18 @@ import { config } from "../../config";
 export const sendOtpEmail = async (email: string, otp: string) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      secure: false,
       auth: {
-        user: config.otp.emailUser,
-        pass: config.otp.emailPass
-      }
+        user: process.env.BREVO_SMTP_USER!,
+        pass: process.env.BREVO_SMTP_PASS!,
+      },
     });
 
     await transporter.sendMail({
       from: config.otp.emailUser,
+      // from: `"Connect App" <${process.env.BREVO_SMTP_USER}>`,
       to: email,
       subject: "Your OTP Code",
       text: `Your OTP code is ${otp}. Valid for 2 minutes`
